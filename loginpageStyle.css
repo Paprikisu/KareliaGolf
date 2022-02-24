@@ -1,6 +1,8 @@
 *{
     margin: 0;
     padding: 0;
+    text-align: none;
+    text-decoration: none;
 
 }
 
@@ -139,14 +141,12 @@ input[type=number] {
 
 .submitBtn:hover{
     background: #438f20;
-    color:#4FAC25;
+    color:#cedfc7;
 }
 
 .submitBtn:active{
     transition: none;
     transform: translateY(1px);
-
-
 }
 
 .form .link{
