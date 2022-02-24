@@ -3,6 +3,7 @@
     <head>
         <title>Kirjautumisikkuna</title>
         <link rel="stylesheet" href="loginpageStyle.css">
+        <script src="Loginfunction.js"></script>
 
     </head>
     <body>
@@ -21,7 +22,7 @@
                     <h2>Kirjaudu tässä</h2>
                     <input type="number" step="none" name="membershipnumber" placeholder="Jäsennumero">
                     <input type="password" name="password" placeholder="Salasana">
-                    <button class="submitBtn"><a href="#">Kirjaudu</a></button>
+                    <button type="button" class="submitBtn" onclick="validate()">Kirjaudu</button>
                     <p class="link">Etkö omista tiliä?<br>
                     Tee tili painamalla <br>
                     <a href="#">tästä</a></p>
