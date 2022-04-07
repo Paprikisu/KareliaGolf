@@ -23,6 +23,10 @@ function App() {
 
             <Route path="/home"  element ={[<Home />]} />
 
+            <Route path="/sisahalli"  element ={[<sisahalli />]} />
+
+            <Route path="/simulaatio"  element ={[<simulaatio />]} />
+
 
 
 

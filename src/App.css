@@ -1,0 +1,24 @@
+:root{
+    --black: #000000;
+    --stgray:rgba(44, 44, 44, 0.4);
+    --medgreen: #4FAC25;
+    --lgreen: #ccdac6;
+    --dgreen: #2e770c;
+    --navdgreen: rgb(51, 131, 14);
+    
+    --stcolor:rgba(0,0,0,0);
+    --white:rgb(231, 231, 231);
+
+    --stwhite:rgba(231, 231, 231, 0.7);
+    --stwhiteLight:rgba(255, 255, 255, 0.9);
+    --stgraydarker:rgba(44, 44, 44, 0.7);
+    --stgraylighter:rgba(71, 71, 71, 0.7);
+
+    --bacgroundgray:rgb(37, 37, 37);
+    --bacgroundgrayLight:rgb(73, 73, 73);
+
+    --font-xlage:font-size: 48px;
+    --font-large:font-size: 36px;
+    --font-medium:font-size: 28px;
+    --font-small:font-size: 14px;
+}

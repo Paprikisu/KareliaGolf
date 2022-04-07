@@ -70,7 +70,6 @@ input[type=number] {
 
 .form{
     display: block;
-    flex-flow: column;
     justify-content: center;
     align-items: center;
     height: 100%;

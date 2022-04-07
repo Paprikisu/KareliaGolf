@@ -90,11 +90,11 @@
 
 }
 
-a{
+.login_formRegister a{
     color: green;
 }
 
-a:hover{
+.login_formRegister a:hover{
     text-decoration: underline;
 }
 

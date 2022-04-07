@@ -28,7 +28,6 @@ function Registration() {
                             Olen lukenut ja hyväksyn  <a href="#" target="blank">käyttöehdot</a>.</span>
                         </label>
                     </div>
-                    <button type="button" className="submitBtn" onclick="validate()">Kirjaudu</button>
                     
 
                 
