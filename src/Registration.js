@@ -3,18 +3,18 @@ import "./registrationstyle.css"
 
 function Registration() {
   return (
-    <div class="main">
-        <div class="backgrounddrop">
+    <div className="main">
+        <div className="backgrounddrop">
         </div>
-            <div class="content">
+            <div className="content">
 
-                <div class="form">
-                    <h2 class="FormHeader">Luo ajanvaraus tunnus tässä</h2>
-                    <p class="FormInfo">Ajanvaraus tunnuksen luontiin tarvitset voimassa olevan klubi jäsenyyden.
+                <div className="form">
+                    <h2 className="FormHeader">Luo ajanvaraus tunnus tässä</h2>
+                    <p className="FormInfo">Ajanvaraus tunnuksen luontiin tarvitset voimassa olevan klubi jäsenyyden.
                     Anna alla olevaan "Jäsennumero" kenttään oma Jäsen numerosi ja täytä oikeat tietosi.
                     Tiedot tarkastetaan, minkä jälkeen saat käyttäjätunnuksesi toimintaan
                     </p>
-                    <div class="form-contents">
+                    <div className="form-contents">
                         <input type="number" step="none" id="membershipnumber" placeholder="Jäsennumero"/>
                         <input type="text" id="FirstName" placeholder="Etunimi"/>
                         <input type="text" id="LastName" placeholder="Sukunimi"/>
@@ -22,13 +22,13 @@ function Registration() {
                         <input type="password" id="password" placeholder="Salasana"/>
                         <input type="password" id="password-2" placeholder="Salasana uudelleen"/>
                     </div>
-                    <div class="checkbox">
+                    <div className="checkbox">
                         <input type="checkbox" id="accept-terms" name="" value=""/>
-                        <label for="accept-terms"><span class="accept-terms-label" data-loc-id="signupAcceptTermsLabel">
+                        <label for="accept-terms"><span className="accept-terms-label" data-loc-id="signupAcceptTermsLabel">
                             Olen lukenut ja hyväksyn  <a href="#" target="blank">käyttöehdot</a>.</span>
                         </label>
                     </div>
-                    <button type="button" class="submitBtn" onclick="validate()">Kirjaudu</button>
+                    <button type="button" className="submitBtn" onclick="validate()">Kirjaudu</button>
                     
 
                 
