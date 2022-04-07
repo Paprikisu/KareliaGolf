@@ -1,0 +1,76 @@
+.home {
+    z-index: 0;
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: url(golfimage.jpg);
+    background-position: 20% 20%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center; /*centers items on the line (the x-axis by default)*/
+    align-items: center; /*centers items on the cross-axis (y by default)*/
+}
+.home_calendarNav{
+    margin-left: 5px;
+    margin-top: 50px;
+}
+
+.home_form{
+    display: flex;
+
+}
+
+table, th, td{
+    border: 1px solid;
+    border-collapse: collapse;
+    margin: 50px;
+}
+
+td{
+    width: 500px;
+    height: 50px;
+    padding-left: 4px;
+    padding-right: 4px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    font-size: 12px;
+    
+}
+
+th:first-child{
+    background: greenyellow;
+}
+
+td:first-child{
+    font-size: 24px;
+    background: rgb(65, 100, 133);
+}
+
+.reactTable > thead {
+    background: greenyellow;
+    font-size: 20px;
+     
+}
+
+.reactTable > td{
+    font-size: 30px;
+    
+}
+
+.tdColorBasic{
+    background: white;
+}
+
+.tdColorGreen{
+    background: green;
+
+}
+
+
+
+
+
+
+
