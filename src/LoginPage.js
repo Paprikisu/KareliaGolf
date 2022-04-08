@@ -1,39 +1,35 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import "./loginpageStyle.css";
+import React from 'react'
+import { Link } from 'react-router-dom'
+import "./loginpageStyle.css"
 
-function loginPage() {
+function LoginPage() {
   return (
-    <div className="login">
-      <div className="login_container">
-        <div className="login_info">
-          <h3>Tervetuloa!</h3>
-          <h4>
-           Kirjaudu sisään varataksesi ja hallinnoidaksesi <br></br> varauksiasi
-          </h4>
-        </div>
+    <div className='main'>
+      <div className='login_background'>
+      </div>
+      <div className='login_content'>
 
-        <div className="login_form">
-          <div className="login_formInput">
-            <h2> Kirjaudu sisään </h2>
+        <div className='login_form'>
+          <h2 className='login_formHeader'>Kirjaudu sisään</h2>
+          <div className='login_formContent'>
+            <input type="email" id='Email' placeholder='Sähköposti' />
+            <input type="password" id='Password' placeholder='Salasana' />
+            <button className='login_formButton'>Kirjaudu sisään</button>
 
-            <h3> Sähköposti </h3>
-            <input type="email"></input>
-            <h3> Salasana </h3>
-            <input type="password"></input>
-            <button type="button" class="submitBtn">Kirjaudu</button>
+
           </div>
-
           <div className="login_formRegister">
-                <h5 className="login_registerInfo">Tee tunnukset </h5>
+                <h5>Etkö omista tunnuksia?</h5>
+                <h5 className="login_formRegisterInfo">Tee tunnukset </h5>
             <Link to="/register">
                 <h5> tässä </h5>
             </Link>
           </div>
         </div>
       </div>
+
     </div>
-  );
+  )
 }
 
-export default loginPage;
+export default LoginPage
