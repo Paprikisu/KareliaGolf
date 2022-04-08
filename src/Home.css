@@ -14,40 +14,6 @@
     
 }
 
-.navbar{
-    display: flex;
-    position: fixed;
-    justify-content: right;
-    align-items: space-between;
-    z-index: 1000;
-    align-items: center;
-    left: 0;
-    top: 0;
-    height: 35px;
-    width: 100%;
-    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
-}
-
-.navbar a{
-    color: var(--white);
-}
-
-.nav_links {
-    list-style: none;
-    display:flex;
-    margin-right: 10%;
-}
-.nav_links li {
-    font-size: 13px;
-    border-radius: 5px;
-    padding: 4px 20px;
-    margin: 0;
-}
-.nav_links li:hover {
-    font-weight: 400;
-    background-color: var(--navdgreen);
-}
-
 
 .form_home{
     display: block;
@@ -56,9 +22,9 @@
     height: 100vh;
     width: 50vh;
     padding: 25px 25px 25px 25px;
-    background: rgb(255, 255, 255);
+    background: var(--white);
 }
-
+/*--------- height -----------*/
 @media (max-height: 590px) {
     .form_home{
         width: 70vh;
@@ -83,6 +49,19 @@
     }
 }
 
+/*--------- Width -----------*/
+@media (max-width: 440px) {
+    .form_home{
+        padding: 1%;
+    }
+}
+
+@media (max-width: 300px) {
+    .form_home{
+        width:100%;
+    }
+}
+
 
 
 .FormHeader_Home{
@@ -104,6 +83,29 @@
     border-style: solid;
 }
 
+/*--------- Width -----------*/
+@media (max-width: 440px) {
+    .HomeValikkoFlex{
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        align-items: center;
+        border: 2px var(--dgreen);
+        border-style: solid;
+    }
+}
+
+@media (max-width: 300px) {
+    .HomeValikkoFlex{
+        display: flex;
+        flex-flow: column;
+        padding: 20px 3%;
+        margin: 20px 2% 10px;
+        border: 2px var(--dgreen);
+        border-style: solid;
+    }
+}
+
 .FormInfo_Home{
     display: block;
     font-family: sans-serif;
@@ -120,7 +122,7 @@
     position: relative;
     width: 50%;
     height: 40px;
-    background-color:#4FAC25;
+    background-color:var(--medgreen);
     font-size: 18px;
     border: none;
     border-radius: 10px;
@@ -132,4 +134,32 @@
 
 .GoToReservation_Btn:hover{
     background-color: var(--dgreen);
+    color:var(--white);
+}
+
+.GoToReservation_Btn:active{
+    transition: none;
+    transform: translateY(1px);
+}
+
+/*--------- Width -----------*/
+@media (max-width: 440px) {
+
+    .FormHeader_Home{
+        font-size: 20px;
+        }
+    
+
+    .FormInfo_Home{
+        width: 95%;
+        text-align: center;
+        letter-spacing: 0.5px;
+        line-height: 20px;
+        margin-bottom: 10px;
+    }
+    
+    .GoToReservation_Btn{
+        width: 95%;
+        height: 40px;
+    }
 }

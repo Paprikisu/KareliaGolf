@@ -9,10 +9,10 @@ function Registration() {
             <div className="content">
 
                 <div className="form">
-                    <h2 className="FormHeader">Luo ajanvaraus tunnus tässä</h2>
+                    <h2 className="FormHeader">Luo ajanvaraus tunnus täällä</h2>
                     <p className="FormInfo">Ajanvaraus tunnuksen luontiin tarvitset voimassa olevan klubi jäsenyyden.
                     Anna alla olevaan "Jäsennumero" kenttään oma Jäsen numerosi ja täytä oikeat tietosi.
-                    Tiedot tarkastetaan, minkä jälkeen saat käyttäjätunnuksesi toimintaan
+                    Tiedot tarkastetaan, minkä jälkeen saat käyttäjätunnuksesi toimintaan.
                     </p>
                     <div className="form-contents">
                         <input type="number" step="none" id="membershipnumber" placeholder="Jäsennumero"/>
@@ -27,8 +27,9 @@ function Registration() {
                         <label for="accept-terms"><span className="accept-terms-label" data-loc-id="signupAcceptTermsLabel">
                             Olen lukenut ja hyväksyn  <a href="#" target="blank">käyttöehdot</a>.</span>
                         </label>
+                        
                     </div>
-                    
+                    <button type="button" className="submitBtn" to="/registration">Rekisteröidy</button>
 
                 
                 </div>

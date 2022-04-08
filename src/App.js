@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Registration from './Registration';
 import Reservation from './Reservation';
 import Home from './Home'
+import Header from './Header/Header';
 
 function App() {
   return (
@@ -26,9 +27,6 @@ function App() {
             <Route path="/sisahalli"  element ={[<sisahalli />]} />
 
             <Route path="/simulaatio"  element ={[<simulaatio />]} />
-
-
-
 
           </Routes>
 

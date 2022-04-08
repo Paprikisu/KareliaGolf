@@ -1,6 +1,7 @@
 import React from 'react'
 import "./Home.css"
 import {useNavigate} from 'react-router-dom';
+import Header from './Header/Header';
 
 function Home() {
   const navigate = useNavigate();
@@ -15,19 +16,7 @@ function Home() {
         <div className="backgrounddrop">
         </div>
             <div className="content">
-              <nav class="navbar">
-                  <ul class="nav_links">
-                      <li><a href="#"class="Mainmenubar">Main</a></li>
-                      <li><a href="#"class="Mainmenubar">Ajanvaraus</a></li>
-                      <li><a href="#"class="Mainmenubar">About</a></li>
-                  </ul>
-                  
-                  <div class="burger">
-                      <div class="line1"></div>
-                      <div class="line2"></div>
-                      <div class="line3"></div>
-                  </div>    
-              </nav>
+              <Header/>
               <div className="form_home">
                 
                   <h2 className="FormHeader_Home">Ajanvaraus valikko</h2>
