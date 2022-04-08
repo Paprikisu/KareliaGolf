@@ -1,0 +1,34 @@
+.navbar{
+    display: flex;
+    position: fixed;
+    justify-content: right;
+    align-items: space-between;
+    z-index: 1000;
+    align-items: center;
+    left: 0;
+    top: 0;
+    height: 35px;
+    width: 100%;
+    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
+}
+
+.navbar a{
+    color: var(--white);
+}
+
+.nav_links {
+    list-style: none;
+    display:flex;
+    margin-right: 10%;
+}
+.nav_links li {
+    font-size: 13px;
+    border-radius: 5px;
+    padding: 4px 20px;
+    margin: 0;
+    transition: 0.2s ease;
+}
+.nav_links li:hover {
+    font-weight: 400;
+    background-color: var(--navdgreen);
+}
