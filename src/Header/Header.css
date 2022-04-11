@@ -16,6 +16,12 @@
     color: var(--white);
 }
 
+.navbar_userName{
+    display: flex;
+    
+    
+}
+
 .nav_links {
     list-style: none;
     display:flex;

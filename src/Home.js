@@ -16,7 +16,7 @@ function Home() {
         <div className="backgrounddrop">
         </div>
             <div className="content">
-              <Header/>
+              
               <div className="form_home">
                 
                   <h2 className="FormHeader_Home">Ajanvaraus valikko</h2>

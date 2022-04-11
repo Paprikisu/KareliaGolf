@@ -1,7 +1,31 @@
-import React from 'react'
+import React, { useState } from 'react'
 import "./registrationstyle.css"
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from './firebase';
 
 function Registration() {
+
+    const navigate = useNavigate();
+
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
+
+    const register = e => {
+        e.preventDefault();
+
+        auth.createUserWithEmailAndPassword(email, password)
+        .then((auth) =>{
+            // Onnistuneesti luotiin uusi käyttäjä
+            console.log(auth);
+            if(auth) {
+                navigate('/home')
+            }
+        })
+        .catch(error => alert(error.message))
+
+        
+    }
   return (
     <div className="main">
         <div className="backgrounddrop">
@@ -18,8 +42,8 @@ function Registration() {
                         <input type="number" step="none" id="membershipnumber" placeholder="Jäsennumero"/>
                         <input type="text" id="FirstName" placeholder="Etunimi"/>
                         <input type="text" id="LastName" placeholder="Sukunimi"/>
-                        <input type="text" id="Email" placeholder="Sähköposti"/>
-                        <input type="password" id="password" placeholder="Salasana"/>
+                        <input type="text" value={email} onChange={e => setEmail(e.target.value)} id="Email" placeholder="Sähköposti"/>
+                        <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" placeholder="Salasana"/>
                         <input type="password" id="password-2" placeholder="Salasana uudelleen"/>
                     </div>
                     <div className="checkbox">
@@ -29,7 +53,7 @@ function Registration() {
                         </label>
                         
                     </div>
-                    <button type="button" className="submitBtn" to="/registration">Rekisteröidy</button>
+                    <button type="button" onClick={register} className="submitBtn" to="/registration">Rekisteröidy</button>
 
                 
                 </div>
