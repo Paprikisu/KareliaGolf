@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 import "./registrationstyle.css"
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from './firebase';
+import { auth, db } from './firebase';
 
 function Registration() {
 
     const navigate = useNavigate();
+    const [membershipnumber, setMembershipnumber] = useState('');
+    const [name, setName] = useState('');
+    const [lastname, setLastname] = useState('');
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -17,6 +20,13 @@ function Registration() {
         auth.createUserWithEmailAndPassword(email, password)
         .then((auth) =>{
             // Onnistuneesti luotiin uusi käyttäjä
+            db.collection("users").add({
+                jäsennumero: membershipnumber,
+                nimi : name,
+                sukunimi : lastname,
+                sähköposti : email
+            })
+
             console.log(auth);
             if(auth) {
                 navigate('/home')
@@ -39,9 +49,9 @@ function Registration() {
                     Tiedot tarkastetaan, minkä jälkeen saat käyttäjätunnuksesi toimintaan.
                     </p>
                     <div className="form-contents">
-                        <input type="number" step="none" id="membershipnumber" placeholder="Jäsennumero"/>
-                        <input type="text" id="FirstName" placeholder="Etunimi"/>
-                        <input type="text" id="LastName" placeholder="Sukunimi"/>
+                    <input type="number" value={membershipnumber} onChange={e => setMembershipnumber(e.target.value)} step="none" id="membershipnumber" placeholder="Jäsennumero"/>
+                        <input type="text" value={name} id="FirstName" onChange={e => setName(e.target.value)} placeholder="Etunimi"/>
+                        <input type="text" value={lastname} id="LastName" onChange={e => setLastname(e.target.value)} placeholder="Sukunimi"/>
                         <input type="text" value={email} onChange={e => setEmail(e.target.value)} id="Email" placeholder="Sähköposti"/>
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" placeholder="Salasana"/>
                         <input type="password" id="password-2" placeholder="Salasana uudelleen"/>
