@@ -1,11 +1,10 @@
 .navbar{
     display: flex;
     position: fixed;
-    justify-content: right;
-    align-items: space-between;
+    justify-content: flex-end;
+    align-items: space-around;
     z-index: 1000;
     align-items: center;
-    left: 0;
     top: 0;
     height: 35px;
     width: 100%;
@@ -18,23 +17,164 @@
 
 .navbar_userName{
     display: flex;
-    
-    
-}
+    cursor: pointer;
+    margin-left: 40px;
+  }
 
 .nav_links {
     list-style: none;
     display:flex;
+    position: relative;
     margin-right: 10%;
+    right: 0;
 }
-.nav_links li {
-    font-size: 13px;
+.nav_links Button,
+.dropdown Button {
+    cursor: pointer;
+    font-size: 10px;
     border-radius: 5px;
     padding: 4px 20px;
-    margin: 0;
+    margin: 0 0 0;
+    background-color: transparent;
+    border: none;
+    color: var(--white);
     transition: 0.2s ease;
 }
-.nav_links li:hover {
+.nav_links Button:hover, 
+.dropdown Button:hover {
     font-weight: 400;
     background-color: var(--navdgreen);
+}
+
+/*------------ PUDOTUS VALIKKO ------------*/
+
+.dropdown {
+  position: relative;
+  margin-left: 5%;
+}
+.dropdown ul{
+  margin-top: 10px;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 26vh;
+  height: 100px;
+  background: var(--lgreen);
+  list-style: none;
+  border-radius: 5px;
+  visibility: hidden;
+  transform: translateY(-5px);
+  transition: all 0.2s ease;
+}
+
+.dropdown li {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: var(--medgreen);
+}
+
+.dropdown a {
+  color: var(--black);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  cursor: pointer;
+}
+
+.dropdown button:focus + ul {
+  visibility: visible;
+  pointer-events: all;
+  transform: translateY(0px);
+}
+
+
+
+
+
+/*------Burger Valikko------*/
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+.burger div{
+  width: 25px;
+  height: 3px;
+  background-color: #d8d8d8;
+  margin: 5px;
+  transition: all 0.5s ease;
+}
+
+
+
+@media (max-width:597px) {
+  body {
+      overflow-x: hidden;
+  }
+  .nav_links {
+      position: absolute;
+      width: 50%;
+      height: 94vh;
+      top: 35px;
+      background-color: var(--stgraydarker);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      margin-right: 0;
+      padding-bottom: 70px;
+      transform: translateX(100%);
+      transition: transform 500ms ease-in;
+  }
+  .nav_links Button {
+      display: flex;
+      flex-grow: inherit;
+      opacity: 1;
+      border-radius: 7px;
+      padding: 10px 20px;
+      margin: 0;
+      transition: all 400ms ease 0s;
+  }
+  .nav_links ul {
+  margin-top: 5px;
+  position: absolute;
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  align-items:center;
+  width: 35vh;
+  height: 100px;
+  background: var(--lgreen);
+  left: -35vh;
+  bottom: -20px;
+  }
+  .dropdown li {
+    justify-content: center;
+  }
+  .burger {
+      display: block;
+  }
+
+  .toggle .line1{
+    transform: rotate(-45deg) translate(-5px,6px);
+  }
+  .toggle .line2{
+    opacity: 0;
+  }
+  .toggle .line3{
+    transform: rotate(45deg) translate(-5px,-6px);
+  }
+  .nav-active {
+    transform: translateX(0%);
+  }
 }
