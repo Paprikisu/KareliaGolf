@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Home.css"
 import {useNavigate} from 'react-router-dom';
-import Header from './Header/Header';
+
 
 function Home() {
   const navigate = useNavigate();

@@ -7,6 +7,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Registration from './Registration';
 import Reservation from './Reservation';
 import Home from './Home'
+import AccountMngPg from './AccountMngPg'
 import Header from './Header/Header';
 import { auth } from './firebase';
 import { useStateValue } from './StateProvider';
@@ -46,9 +47,11 @@ function App() {
 
             <Route path="/register"  element ={[<Registration />]} />
 
-            <Route path="/reservation"  element ={[<Reservation />]} />
+            <Route path="/reservation"  element ={[<Header/>, <Reservation />]} />
 
             <Route path="/home"  element ={[<Header/>, <Home />]} />
+
+            <Route path="/account_management"  element ={[<Header/>, <AccountMngPg />]} />
 
             <Route path="/sisahalli"  element ={[<sisahalli />]} />
 
