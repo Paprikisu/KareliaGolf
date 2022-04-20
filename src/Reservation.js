@@ -3,11 +3,24 @@ import "./Reservation.css";
 import "react-calendar/dist/Calendar.css";
 import { Calendar } from "react-calendar";
 import { useTable } from "react-table/dist/react-table.development";
+import 'reactjs-popup/dist/index.css';
+import Popup from './Popup';
+import { db } from './firebase'
+import { useStateValue } from "./StateProvider";
+import { useNavigate } from "react-router-dom";
 
-function Table({ columns, data,  }) {
-  const [selectedId, setSelectedId] = useState(-1)
-  const [column, setColumn] = useState(-1)
-  const [style, setStyle] = useState("tdColorBasic")
+const defaultPropGetter = () => ({})
+
+function Table({ 
+  columns,
+  data, 
+  getTrProps = props => props,
+  getColumnProps = defaultPropGetter,
+  getRowProps = defaultPropGetter,
+  getCellProps = defaultPropGetter,  
+}) {
+
+ 
 
   const {
     getTableProps,
@@ -24,13 +37,12 @@ function Table({ columns, data,  }) {
     data,
   });
 
-  const getCellValue = (e, j) => {
-    setSelectedId(e.row.id)
-    setColumn(j)
-    
-  };
+  
 
-  return (
+  
+
+  return ( 
+   
     <table className="reactTable" {...getTableProps()}>
       <thead>
         {
@@ -74,31 +86,33 @@ function Table({ columns, data,  }) {
             return (
               // Apply the row props
 
-              <tr {...row.getRowProps()}>
+              <tr {...row.getRowProps()}{...getTrProps(row)}>
                 {
                   // Loop over the rows cells
 
-                  row.cells.map((cell, j) => {
+                  row.cells.map((cell) => {
                     // Apply the cell props
+                    
 
                     return (
-                      <td className={style}
-
-                      onClick={() => getCellValue(cell,j) }
+                      <td 
+                      // Return an array of prop objects and react-table will merge them appropriately
                       
-                      style={{
-                        background: selectedId === row.id && column === j ? 'green' : 'white'
-                      }}
+                      {...cell.getCellProps([
+                      {
+                        className: cell.column.className,
+                        style: cell.column.style,
+                      },
+                        getColumnProps(cell.column),
+                        getCellProps(cell),
+                        
+                      ])}
                       
-                      
-                      
-                      
-                      
-                       {...cell.getCellProps()}>
+                      >
                         {
                           // Render the cell contents
-
                           cell.render("Cell")
+                          
                         }
                       </td>
                     );
@@ -109,20 +123,39 @@ function Table({ columns, data,  }) {
           })
         }
       </tbody>
+
+      
     </table>
+    
+
+    
+
+    
+    
   );
+
+  
 }
 
-function Reservation() {
-  const [value, onChange] = useState(new Date());
 
-  const [status, setStatus] = useState();
+
+
+function Reservation() {
+
+  const [popupWindow, setPopupWindow] = useState(false);
+
+  const [{ user }, dispatch] = useStateValue();
 
   const data = React.useMemo(
     () => [
       {
         col1: "8:00",
         col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+
       },
       {
         col1: "9:00",
@@ -202,10 +235,40 @@ function Reservation() {
     []
   );
 
+  const navigate = useNavigate();
+  const [reserveTime, setReservetime] = useState("")
+  const [reserveDate, setReservedate] = useState("")
+  const [userEmail, setUserEmail] = useState(user ? user.email : "")
+
+  // Lisää varaus firestoren tietokantaan
+  const doReservation = e =>{
+    e.preventDefault();
+
+    db
+    .collection("reservations")
+    .add({
+      Varaaja: userEmail,
+      Varauspäivä: reserveDate,
+      Varausaika: reserveTime
+    })
+
+
+    // Testaus tarkoitus
+    console.log("Varattu päivä: " + reserveDate)
+    console.log("Varattu aika: " + reserveTime)
+
+    // TULEE LISÄTÄ -- Navigoi asiakkaan varauksiin homen sijaan
+    navigate('/home')
+    alert("Varaus Onnistui!")
+
+  } 
+  
   return (
     <div className="home">
       <div className="home_container">
         <div className="home_form">
+          
+          
           <div className="home_calendarNav">
             <Calendar showWeekNumbers />
           </div>
@@ -213,8 +276,62 @@ function Reservation() {
             <Table
             columns={columns}
             data={data} 
+            getColumnProps={column => ({
+              
+              onClick: () =>{
+                // Jos headerin arvo valitussa kohdassa on Aika, älä tee mitään.
+                if (column.Header === "Aika") {
+                  console.log("Et voi varata aikaa tähän")
+
+                }
+                // Jos headerin arvo on mikä tahansa muu kuin Aika - Avaa popup ikkuna
+                else{
+                  setPopupWindow(true)
+                // testing purposes
+                console.log(column.Header)
+                // Valitsee klikatun rivin headerin arvon (viikonpäivä)
+                setReservedate(column.Header)
+
+                }
+                
+
+              } 
+
+              
+            })}
+            getTrProps={row =>({
+              onClick: (e) =>{
+                 // testing purposes
+                console.log(row.cells[0].value)
+                // Valitsee klikatun rivin ensimmäisen lapsen arvon (Aika)
+                setReservetime(row.cells[0].value)
+
+                
+                
+              }
+            })}
+
+            
+
+            
+            
             
             />
+            
+
+            <Popup trigger={popupWindow} setTrigger={setPopupWindow}>
+              <h3> Varaa aika</h3>
+              <p> Haluatko varata ajan?</p>
+              <p className="popup_weekday">{reserveDate}</p>
+              <p className="popup_reserveTime">{reserveTime}</p>
+              <button className="popup_reserveBtn" onClick={doReservation}>
+                Varaa
+              </button>
+              
+
+            </Popup>
+
+
           </div>
         </div>
       </div>
