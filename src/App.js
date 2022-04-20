@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import logo from './logo.svg';
+
 
 import LoginPage from './LoginPage'
 import './App.css';
