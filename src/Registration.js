@@ -12,28 +12,34 @@ function Registration() {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordAgain, setPasswordAgain] = useState('');
 
 
     const register = e => {
-        e.preventDefault();
 
-        auth.createUserWithEmailAndPassword(email, password)
-        .then((auth) =>{
-            // Onnistuneesti luotiin uusi käyttäjä
-            db.collection("users").add({
-                jäsennumero: membershipnumber,
-                nimi : name,
-                sukunimi : lastname,
-                sähköposti : email
+        //Yksinkertainen tarkastus, että kentissä on jotain ja salasanakenttien sisällöt täsmäävät
+        if(name.length > 0 && lastname.length > 0 && email.length > 0 && password.length > 5 && password == passwordAgain) {
+            e.preventDefault();
+
+            auth.createUserWithEmailAndPassword(email, password)
+            .then((auth) =>{
+                // Onnistuneesti luotiin uusi käyttäjä
+                db.collection("users").add({
+                    jäsennumero: membershipnumber,
+                    nimi : name,
+                    sukunimi : lastname,
+                    sähköposti : email
+                })
+
+                console.log(auth);
+                if(auth) {
+                    navigate('/home')
+                }
             })
-
-            console.log(auth);
-            if(auth) {
-                navigate('/home')
-            }
-        })
-        .catch(error => alert(error.message))
-
+            .catch(error => alert(error.message))
+    } else {
+        alert("Virhe: tarkista tiedot ja varmista että kaikki kentät on täytetty oikein.")
+    }
         
     }
   return (
@@ -54,7 +60,7 @@ function Registration() {
                         <input type="text" value={lastname} id="LastName" onChange={e => setLastname(e.target.value)} placeholder="Sukunimi"/>
                         <input type="text" value={email} onChange={e => setEmail(e.target.value)} id="Email" placeholder="Sähköposti"/>
                         <input type="password" value={password} onChange={e => setPassword(e.target.value)} id="password" placeholder="Salasana"/>
-                        <input type="password" id="password-2" placeholder="Salasana uudelleen"/>
+                        <input type="password" value={passwordAgain} onChange={e => setPasswordAgain(e.target.value)} id="password-2" placeholder="Salasana uudelleen"/>
                     </div>
                     <div className="checkbox">
                         <input type="checkbox" id="accept-terms" name="" value=""/>
