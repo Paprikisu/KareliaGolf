@@ -147,7 +147,7 @@
 @media (max-width: 597px) {
     .form_am {
         width: 100%;
-        flex-flow: column;
+        flex-flow: column-reverse;
     }
 }
 
@@ -170,4 +170,17 @@
         justify-content: center;
         align-items: center;
     }
+}
+
+#SP {
+    font-size: 18px;
+    margin-bottom: 0;
+}
+
+.Spostitxt {
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: #333;
+    margin-bottom: 25px;
 }
