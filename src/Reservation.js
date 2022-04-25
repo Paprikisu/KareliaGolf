@@ -1,15 +1,22 @@
 import React, { useState } from "react";
 import "./Reservation.css";
 import "react-calendar/dist/Calendar.css";
-import { Calendar } from "react-calendar";
 import { useTable } from "react-table/dist/react-table.development";
 import 'reactjs-popup/dist/index.css';
 import Popup from './Popup';
 import { db } from './firebase'
 import { useStateValue } from "./StateProvider";
 import { useNavigate } from "react-router-dom";
+import moment from "moment"
+import { add, addDays, setDate, sub } from "date-fns";
+import { subDays } from "date-fns/esm";
+
 
 const defaultPropGetter = () => ({})
+
+
+
+
 
 function Table({ 
   columns,
@@ -140,14 +147,57 @@ function Table({
 
 
 
+
 function Reservation() {
 
   const [popupWindow, setPopupWindow] = useState(false);
 
   const [{ user }, dispatch] = useStateValue();
 
+  const today = new Date();
+  const tomorrow = new Date(today);
+  let [dateCounter , setDatecounter] = useState("")
+
+
   const data = React.useMemo(
     () => [
+      {
+        col1: "6:00",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+
+      },
+      {
+        col1: "6:30",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+
+      },
+      {
+        col1: "7:00",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+
+      },
+      {
+        col1: "7:30",
+        col2: "",
+        col3: "",
+        col4: "",
+        col5: "",
+        col6: "",
+
+      },
+      
       {
         col1: "8:00",
         col2: "",
@@ -158,7 +208,15 @@ function Reservation() {
 
       },
       {
+        col1: "8:30",
+        col2: "",
+      },
+      {
         col1: "9:00",
+        col2: "",
+      },
+      {
+        col1: "9:30",
         col2: "",
       },
       {
@@ -166,7 +224,15 @@ function Reservation() {
         col2: "",
       },
       {
+        col1: "10:30",
+        col2: "",
+      },
+      {
         col1: "11:00",
+        col2: "",
+      },
+      {
+        col1: "11:30",
         col2: "",
       },
       {
@@ -174,7 +240,15 @@ function Reservation() {
         col2: "",
       },
       {
+        col1: "12:30",
+        col2: "",
+      },
+      {
         col1: "13:00",
+        col2: "",
+      },
+      {
+        col1: "13:30",
         col2: "",
       },
       {
@@ -182,7 +256,15 @@ function Reservation() {
         col2: "",
       },
       {
+        col1: "14:30",
+        col2: "",
+      },
+      {
         col1: "15:00",
+        col2: "",
+      },
+      {
+        col1: "15:30",
         col2: "",
       },
       {
@@ -190,7 +272,15 @@ function Reservation() {
         col2: "",
       },
       {
+        col1: "16:30",
+        col2: "",
+      },
+      {
         col1: "17:00",
+        col2: "",
+      },
+      {
+        col1: "17:30",
         col2: "",
       },
       {
@@ -198,12 +288,61 @@ function Reservation() {
         col2: "",
       },
       {
+        col1: "18:30",
+        col2: "",
+      },
+      {
         col1: "19:00",
         col2: "",
       },
+      {
+        col1: "19:30",
+        col2: "",
+      },
+      {
+        col1: "20:00",
+        col2: "",
+      },
+      {
+        col1: "20:30",
+        col2: "",
+      },
+
+      {
+        col1: "21:00",
+        col2: "",
+      },{
+        col1: "21:30",
+        col2: "",
+      },
+
     ],
     []
   );
+
+  const [dateTest, setDateTest] = useState(new Date())
+
+
+const goForward = () =>{
+  setDateTest(addDays(dateTest, 7))
+  console.log(dateTest)
+  setColumnUpdate(columnUpdate)
+  
+}
+
+
+const goBack = () =>{
+  setDateTest(subDays(dateTest, 7))
+  console.log(dateTest)
+
+}
+
+let headerMonday = moment().weekday(1).format('DD.M')
+let headerTuesday = moment().weekday(2).format('DD.M')
+let headerWednesday = moment().weekday(3).format('DD.M')
+let headerThursday = moment().weekday(4).format('DD.M')
+let headerFriday = moment().weekday(5).format('DD.M')
+
 
   const columns = React.useMemo(
     () => [
@@ -212,23 +351,23 @@ function Reservation() {
         accessor: "col1", // Accessor is the 'key' in the data (kinda like id)
       },
       {
-        Header: "Maanantai",
+        Header: "Maanantai " + dateTest ,
         accessor: "col2",
       },
       {
-        Header: "Tiistai",
+        Header: "Tiistai " + headerTuesday  ,
         accessor: "col3",
       },
       {
-        Header: "Keskiviikko",
+        Header: "Keskiviikko " + headerWednesday  ,
         accessor: "col4",
       },
       {
-        Header: "Torstai",
+        Header: "Torstai " + headerThursday  ,
         accessor: "col5",
       },
       {
-        Header: "Perjantai",
+        Header: "Perjantai " + headerFriday  ,
         accessor: "col6",
       },
     ],
@@ -239,6 +378,8 @@ function Reservation() {
   const [reserveTime, setReservetime] = useState("")
   const [reserveDate, setReservedate] = useState("")
   const [userEmail, setUserEmail] = useState(user ? user.email : "")
+
+
 
   // Lisää varaus firestoren tietokantaan
   const doReservation = e =>{
@@ -262,6 +403,37 @@ function Reservation() {
     alert("Varaus Onnistui!")
 
   } 
+
+  const updateDatabase = () => {
+    db.collection("reservations").doc("")
+    .onSnapshot((doc) =>{
+      console.log("Current data: ", doc.data());
+    });
+
+  }
+
+  const [columnUpdate, setColumnUpdate] = useState(columns)
+
+
+  let reservationsRef = db.collection("reservations")
+  let query = reservationsRef.where("Varaaja", "==", true)
+
+  const testiFunktio = () => {
+    db.collection("reservations").where("Varauspäivä", "==", "Maanantai")
+    .get()
+    .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+            // doc.data() is never undefined for query doc snapshots
+            console.log(doc.id, " => ", doc.data());
+        });
+    })
+    .catch((error) => {
+        console.log("Error getting documents: ", error);
+    });
+  }
+
+
+
   
   return (
     <div className="home">
@@ -269,12 +441,20 @@ function Reservation() {
         <div className="home_form">
           
           
-          <div className="home_calendarNav">
-            <Calendar showWeekNumbers />
+          <div className="home_title">
+            <p>Varauskalenteri</p>
+            
+          </div>
+          <div className="home_buttons">
+            <button onClick={testiFunktio}>Lue varaukset testi</button>
+            <button onClick={updateDatabase}>Lue tietokanta</button>
+            <button onClick={goBack}>Taaksepäin </button>
+            <button onClick={goForward}>Eteenpäin</button>
           </div>
           <div className="home_calendar">
+            
             <Table
-            columns={columns}
+            columns={columnUpdate}
             data={data} 
             getColumnProps={column => ({
               
@@ -286,12 +466,19 @@ function Reservation() {
                 }
                 // Jos headerin arvo on mikä tahansa muu kuin Aika - Avaa popup ikkuna
                 else{
-                  setPopupWindow(true)
-                // testing purposes
-                console.log(column.Header)
-                // Valitsee klikatun rivin headerin arvon (viikonpäivä)
-                setReservedate(column.Header)
+                    // Jos käyttäjä on kirjautunut sisään
+                  if(user){
+                    setPopupWindow(true)
+                     // testing purposes
+                      console.log(column.Header)
+                    // Valitsee klikatun rivin headerin arvon (viikonpäivä)
+                       setReservedate(column.Header)
 
+                  }
+                  else{
+                    alert("Et ole kirjautunut sisään tehdäksesi varausta")
+                  }
+                  
                 }
                 
 
