@@ -11,6 +11,9 @@ import AccountMngPg from './AccountMngPg'
 import Header from './Header/Header';
 import { auth } from './firebase';
 import { useStateValue } from './StateProvider';
+import PasswordReset from './PasswordReset'
+
+
 
 function App() {
   const [{ }, dispatch] = useStateValue();
@@ -56,6 +59,9 @@ function App() {
             <Route path="/sisahalli"  element ={[<sisahalli />]} />
 
             <Route path="/simulaatio"  element ={[<simulaatio />]} />
+
+            <Route path="/passwordReset" element ={[<PasswordReset />]} />
+
 
           </Routes>
 

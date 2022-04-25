@@ -12,14 +12,29 @@
     justify-content: center; /*centers items on the line (the x-axis by default)*/
     align-items: center; /*centers items on the cross-axis (y by default)*/
 }
-.home_calendarNav{
-    margin-left: 5px;
-    margin-top: 50px;
-}
 
 .home_form{
     display: flex;
+    flex-direction: column;
 
+}
+
+.home_title{
+    display: flex;
+    align-self: center;
+    max-width: 50%;
+    font-size: 25px;
+    border: 1px solid;
+    border-radius: 5px;
+    padding: 5px;
+    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
+
+}
+
+.home_buttons{
+    margin-top: 100px;
+    display: flex;
+    align-self: center;
 }
 
 table, th, td{
@@ -30,7 +45,6 @@ table, th, td{
 
 td{
     width: 500px;
-    height: 50px;
     padding-left: 4px;
     padding-right: 4px;
     background-color: rgb(255, 255, 255);
@@ -40,16 +54,19 @@ td{
 }
 
 th:first-child{
-    background: greenyellow;
+    border-left: 1px solid transparent;
+    border-top: 1px solid transparent;
+    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
 }
 
 td:first-child{
+    border-left: 1px solid transparent;
     font-size: 24px;
     background: rgb(65, 100, 133);
 }
 
 .reactTable > thead {
-    background: greenyellow;
+    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
     font-size: 20px;
      
 }
@@ -57,15 +74,6 @@ td:first-child{
 .reactTable > td{
     font-size: 30px;
     
-}
-
-.tdColorBasic{
-    background: white;
-}
-
-.tdColorGreen{
-    background: green;
-
 }
 
 
