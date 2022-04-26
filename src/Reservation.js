@@ -392,6 +392,70 @@ let headerFriday = moment().weekday(5).format('DD.M')
       Varauspäivä: reserveDate,
       Varausaika: reserveTime
     })
+    .then(function(docRef) {
+      let reservationId = docRef.id
+      console.log(reservationId)
+      return reservationId
+    })
+    .then(function(reservationId) {
+
+      var ovikoodit = db.collection("ovikoodit")            
+      var query = ovikoodit.where("__name__", ">=", reservationId)
+      var snapshot = query.orderBy("__name__").limit(1).get().then(function(snapshot) {
+
+         //Make a new query if snapshot is empty
+        if (snapshot.empty == true) {
+          console.log("Snapshot is empty!")
+          var ovikoodit = db.collection("ovikoodit")
+          var query = ovikoodit.where("__name__", "<", reservationId)
+          var newSnapshot = query.orderBy("__name__").limit(1).get().then(function(newSnapshot) {
+
+            newSnapshot.forEach(doc => {
+              let docData = doc.data()
+              console.log(doc.id, " => ", docData.koodi)
+              var varausRef = db.collection("reservations").doc(reservationId)                                        
+
+              return varausRef.update({
+                ovikoodi: docData.koodi
+              })
+              .then(                
+                console.log("Reservation data updated and door code added")                
+              )
+              .then(
+                alert("Varaus onnistui! Ovikoodi on " + docData.koodi)                
+              )  
+              .then(
+                navigate('/home')
+              )                                          
+            })
+
+          })
+
+        } else {
+          snapshot.forEach(doc => {
+            let docData = doc.data()
+            console.log(doc.id, " => ", docData.koodi)            
+            var varausRef = db.collection("reservations").doc(reservationId)                          
+
+            return varausRef.update({
+              ovikoodi: docData.koodi
+            })
+            .then(             
+              console.log("Reservation data updated and door code added")
+            )
+            .then(
+              alert("Varaus onnistui! Ovikoodi on " + docData.koodi)              
+            )
+            .then(
+              navigate('/home')
+            )                      
+          })
+        }
+      })
+    })
+    .catch(function(error) {
+      console.log("Error in registration or door code delivery")
+    })
 
 
     // Testaus tarkoitus
@@ -399,7 +463,6 @@ let headerFriday = moment().weekday(5).format('DD.M')
     console.log("Varattu aika: " + reserveTime)
 
     // TULEE LISÄTÄ -- Navigoi asiakkaan varauksiin homen sijaan
-    navigate('/home')
     alert("Varaus Onnistui!")
 
   } 
