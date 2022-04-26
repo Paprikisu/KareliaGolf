@@ -17,31 +17,43 @@ function Registration() {
 
     const register = e => {
 
-        //Yksinkertainen tarkastus, että kentissä on jotain ja salasanakenttien sisällöt täsmäävät
-        if(name.length > 0 && lastname.length > 0 && email.length > 0 && password.length > 5 && password == passwordAgain) {
-            e.preventDefault();
+        //Tarkastetaan että käyttäjällä on voimassaoleva jäsennumero
+        var jasennumerot = db.collection("jasennumerot")            
+        var query = jasennumerot.where("jasennumero", "==", membershipnumber)
+        var snapshot = query.get().then(function(snapshot) {
+  
+            //Jos jäsennumero löytyy tietokannasta, hyväksytään käyttäjä jos muut ehdot täyttyvät
+             if (snapshot.empty == false) {
 
-            auth.createUserWithEmailAndPassword(email, password)
-            .then((auth) =>{
-                // Onnistuneesti luotiin uusi käyttäjä
-                db.collection("users").add({
-                    jäsennumero: membershipnumber,
-                    nimi : name,
-                    sukunimi : lastname,
-                    sähköposti : email
-                })
+                //Yksinkertainen tarkastus, että kentissä on jotain ja salasanakenttien sisällöt täsmäävät
+                if(name.length > 0 && lastname.length > 0 && email.length > 0 && password.length > 5 && password == passwordAgain) {
+                    e.preventDefault();
 
-                console.log(auth);
-                if(auth) {
-                    navigate('/home')
+                    auth.createUserWithEmailAndPassword(email, password)
+                    .then((auth) =>{
+                        // Onnistuneesti luotiin uusi käyttäjä
+                        db.collection("users").add({
+                            jäsennumero: membershipnumber,
+                            nimi : name,
+                            sukunimi : lastname,
+                            sähköposti : email
+                        })
+
+                        console.log(auth);
+                        if(auth) {
+                            navigate('/home')
+                        }
+                    })
+                    .catch(error => alert(error.message))
+                } else {
+                    alert("Virhe: tarkista tiedot ja varmista että kaikki kentät on täytetty oikein.")
                 }
-            })
-            .catch(error => alert(error.message))
-    } else {
-        alert("Virhe: tarkista tiedot ja varmista että kaikki kentät on täytetty oikein.")
+            } else {
+                alert("Virheellinen jäsennumero")
+            }     
+        })
     }
-        
-    }
+    
   return (
     <div className="main">
         <div className="backgrounddrop">

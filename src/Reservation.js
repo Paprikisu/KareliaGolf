@@ -405,7 +405,6 @@ let headerFriday = moment().weekday(5).format('DD.M')
 
          //Make a new query if snapshot is empty
         if (snapshot.empty == true) {
-          console.log("Snapshot is empty!")
           var ovikoodit = db.collection("ovikoodit")
           var query = ovikoodit.where("__name__", "<", reservationId)
           var newSnapshot = query.orderBy("__name__").limit(1).get().then(function(newSnapshot) {
@@ -419,7 +418,7 @@ let headerFriday = moment().weekday(5).format('DD.M')
                 ovikoodi: docData.koodi
               })
               .then(                
-                console.log("Reservation data updated and door code added")                
+                console.log("Reservation data updated")                
               )
               .then(
                 alert("Varaus onnistui! Ovikoodi on " + docData.koodi)                
@@ -441,7 +440,7 @@ let headerFriday = moment().weekday(5).format('DD.M')
               ovikoodi: docData.koodi
             })
             .then(             
-              console.log("Reservation data updated and door code added")
+              console.log("Reservation data updated")
             )
             .then(
               alert("Varaus onnistui! Ovikoodi on " + docData.koodi)              
@@ -454,7 +453,7 @@ let headerFriday = moment().weekday(5).format('DD.M')
       })
     })
     .catch(function(error) {
-      console.log("Error in registration or door code delivery")
+      alert("Virhe ajanvarauksessa. Ole hyvä ja yritä uudelleen.")
     })
 
 
