@@ -4,6 +4,7 @@ import "./AccountMngPg.css"
 import { db } from './firebase'
 import { Timestamp } from 'firebase/firestore'
 import { getAuth, updatePassword, updateEmail, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
+import { List } from '@mui/material'
 
 
 
@@ -37,6 +38,8 @@ function AccountMngPg() {
 
 
 //Tulosta tiedot---------
+
+/*
   function getUserReservations() {
     var currUser = getAuth().currentUser
     if(currUser) {
@@ -55,7 +58,7 @@ function AccountMngPg() {
       })
     }
   }
-
+*/
 //Admin-toiminto vanhan varausdata poistoon, tulee vaatimaan kirjoitusoikeudet kokoelmaan
   function adminDatabaseUpkeep(){
 
@@ -165,6 +168,37 @@ function AccountMngPg() {
   }
 
 if (user) {
+
+//Tulosta tiedot---------
+function varaukset() {
+  
+  if (document.querySelector('#varaukset').hasChildNodes()) {
+      alert("Lista jo näkyvissä");
+    }
+  
+  else{
+     db.collection("reservations").where("Varaaja", "==", (getAuth().currentUser.email)).limit(5)
+      .onSnapshot((snapshot) => {
+        var varausUl = document.querySelector('#varaukset');
+
+          snapshot.docs.forEach((doc) => {
+            let varausLi = document.createElement('li');
+            let aika = document.createElement('span');
+            let ovikoodini = document.createElement('p');
+    
+            varausLi.setAttribute('data-id', doc.id);
+
+            aika.textContent = doc.data().Varauspäivä;
+            ovikoodini.textContent = "Ovikoodi: " + doc.data().ovikoodi;
+            varausLi.appendChild(aika);
+            varausLi.appendChild(ovikoodini);
+            
+            varausUl.appendChild(varausLi);
+          })     
+      });
+    }
+}
+
  
   //Palautetaan normaali sivusto jos käyttäjä on kirjautunut sisään
   return (
@@ -183,12 +217,13 @@ if (user) {
 
               <h2 className="FormHeader_am">Käyttäjänhallinta</h2>
 
-              <h3 className="FormHeader_am" id='SP'>
-                  Käytössä oleva sähköpostisi:
-                </h3>
-                
-                <p className='Spostitxt'>{user.email}</p>
+              <div className="form_am-contents">
 
+                <button type="button" onClick={varaukset} className="confirmBtn">Omat varaukset</button>
+
+                <List id='varaukset' sx={{ width: '100%', bgcolor: 'background.paper' }} ></List>
+
+              </div>
 
               <div className="form_am-contents">
                 <p className="FormAMInfo">
@@ -198,13 +233,6 @@ if (user) {
                 <input type="password" value={cnfrmPassword} onChange={e => setcnfrmPassword(e.target.value)} id="password" placeholder="Vahvista salasanalla"/>
                 <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda sähköposti</button>
               </div>          
-
-              <div className="form_am-contents">
-                <p className="FormAMInfo">
-                  Omat varaukset
-                </p>
-                <button type="button" onClick={getUserReservations} className="confirmBtn">Hae omat varaukset</button>
-              </div>
 
               <div className="form_am-contents">
                 <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
