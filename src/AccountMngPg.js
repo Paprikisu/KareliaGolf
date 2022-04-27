@@ -35,17 +35,28 @@ function AccountMngPg() {
     }).catch(error => alert(error.message))
   }
 
-  //Vaihda salasana
-  function onChangePassword() {
-    reauthenticate(currentPassword).then((e) => {
-      updatePassword(user, newPassword).then((e) => {
-        alert("Salasana Vaihdettu Onnistuneesti!");
-      }).catch((error) => { alert(error); });
-    }).catch((error) => { alert(error); });
-  }
 
 //Tulosta tiedot---------
-
+  function getUserReservations() {
+    var currUser = getAuth().currentUser
+    if(currUser) {
+      var reservations = db.collection("reservations")            
+      var query = reservations.where("Varaaja", "==", (currUser.email))
+      query.get().then((snapshot) => {
+          if(snapshot.empty) {
+            alert("Ei varauksia")
+          } else {
+            console.log("Snapshot returned")
+            const omatVaraukset = Array()
+            snapshot.forEach(tulos => {
+              omatVaraukset.push(tulos.data())
+              console.log(tulos)
+              alert("Varauksen tiedot: " + tulos.data().Varausaika + " " + tulos.data().Varauspäivä + " Ovikoodi: " + tulos.data().ovikoodi)
+            })
+          }
+      })
+    }
+  }
 
 //Admin-toiminto vanhan varausdata poistoon, tulee vaatimaan kirjoitusoikeudet kokoelmaan
   function adminDatabaseUpkeep(){
@@ -191,16 +202,13 @@ if (user) {
                 <input type="text" value={newEmail} onChange={e => setEmail(e.target.value)} id="emailtxt" placeholder="Uusi Sähköposti"/>
                 <input type="password" value={cnfrmPassword} onChange={e => setcnfrmPassword(e.target.value)} id="password" placeholder="Vahvista salasanalla"/>
                 <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda Sähköposti</button>
-              </div>
+              </div>          
 
               <div className="form_am-contents">
                 <p className="FormAMInfo">
-                  Vaihda salasana:
+                  Omat varaukset
                 </p>
-                <input type="password" value={currentPassword} onChange={e => setcurrentPassword(e.target.value)} id="password" placeholder="Vanha Salasana"/>
-                <input type="password" value={newPassword} onChange={e => setnewPassword(e.target.value)} id="password" placeholder="Uusi Salasana"/>
-              
-                <button type="button" onClick={onChangePassword} className="confirmBtn">Vaihda Salasana</button>
+                <button type="button" onClick={getUserReservations} className="confirmBtn">Hae omat varaukset</button>
               </div>
 
               <div className="form_am-contents">
@@ -241,4 +249,11 @@ if (user) {
   }
 }
 
+const Note = (props) => {
+  return (
+    <li>{props.content}</li>
+  )
+}
+
 export default AccountMngPg
+
