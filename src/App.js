@@ -23,7 +23,6 @@ function App() {
 
     // Vain testausta varten --- Poista ennen käyttöönottoa
     auth.onAuthStateChanged(authUser => {
-      console.log('käyttäjä on >> ', authUser)
 
       if (authUser) {
         // the user just logged in / the user was logged in

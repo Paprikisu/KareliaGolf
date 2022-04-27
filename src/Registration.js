@@ -24,30 +24,37 @@ function Registration() {
   
             //Jos jäsennumero löytyy tietokannasta, hyväksytään käyttäjä jos muut ehdot täyttyvät
              if (snapshot.empty == false) {
+                
+                var kayttajat = db.collection("users")            
+                var query = kayttajat.where("jäsennumero", "==", membershipnumber)
+                var snapshot = query.get().then(function(snapshot) {
+                    if(snapshot.empty == true) {
+                        //Yksinkertainen tarkastus, että kentissä on jotain ja salasanakenttien sisällöt täsmäävät
+                        if(name.length > 0 && lastname.length > 0 && email.length > 0 && password.length > 5 && password == passwordAgain) {
+                            e.preventDefault();
 
-                //Yksinkertainen tarkastus, että kentissä on jotain ja salasanakenttien sisällöt täsmäävät
-                if(name.length > 0 && lastname.length > 0 && email.length > 0 && password.length > 5 && password == passwordAgain) {
-                    e.preventDefault();
+                            auth.createUserWithEmailAndPassword(email, password)
+                            .then((auth) =>{
+                                // Onnistuneesti luotiin uusi käyttäjä
+                                db.collection("users").add({
+                                    jäsennumero: membershipnumber,
+                                    nimi : name,
+                                    sukunimi : lastname,
+                                    sähköposti : email
+                                })
 
-                    auth.createUserWithEmailAndPassword(email, password)
-                    .then((auth) =>{
-                        // Onnistuneesti luotiin uusi käyttäjä
-                        db.collection("users").add({
-                            jäsennumero: membershipnumber,
-                            nimi : name,
-                            sukunimi : lastname,
-                            sähköposti : email
-                        })
-
-                        console.log(auth);
-                        if(auth) {
-                            navigate('/home')
+                                if(auth) {
+                                    navigate('/home')
+                                }
+                            })
+                            .catch(error => alert(error.message))
+                        } else {
+                            alert("Virhe: tarkista tiedot ja varmista että kaikki kentät on täytetty oikein.")
                         }
-                    })
-                    .catch(error => alert(error.message))
-                } else {
-                    alert("Virhe: tarkista tiedot ja varmista että kaikki kentät on täytetty oikein.")
-                }
+                    } else {
+                        alert("Virhe: jäsennumerolla on jo olemassaoleva käyttäjätunnus")
+                    }
+                })
             } else {
                 alert("Virheellinen jäsennumero")
             }     
@@ -61,9 +68,9 @@ function Registration() {
             <div className="content">
 
                 <div className="form">
-                    <h2 className="FormHeader">Luo ajanvaraus tunnus täällä</h2>
-                    <p className="FormInfo">Ajanvaraus tunnuksen luontiin tarvitset voimassa olevan klubi jäsenyyden.
-                    Anna alla olevaan "Jäsennumero" kenttään oma Jäsen numerosi ja täytä oikeat tietosi.
+                    <h2 className="FormHeader">Luo ajanvaraustunnus täällä</h2>
+                    <p className="FormInfo">Ajanvaraustunnuksen luontiin tarvitset voimassa olevan jäsenyyden.
+                    Anna alla olevaan "Jäsennumero" kenttään oma jäsennumerosi seurassa ja täytä muut tietosi.
                     Tiedot tarkastetaan, minkä jälkeen saat käyttäjätunnuksesi toimintaan.
                     </p>
                     <div className="form-contents">

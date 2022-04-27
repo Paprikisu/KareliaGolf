@@ -18,7 +18,7 @@ function PasswordReset() {
     
     auth.sendPasswordResetEmail(email)
     .then(() => {
-      alert("Palautus sähköposti lähetetty!")
+      alert("Palautussähköposti lähetetty!")
       navigate("/")
 
     // Password reset email sent!

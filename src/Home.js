@@ -19,7 +19,7 @@ function Home() {
               
               <div className="form_home">
                 
-                  <h2 className="FormHeader_Home">Ajanvaraus valikko</h2>
+                  <h2 className="FormHeader_Home">Ajanvarausvalikko</h2>
 
                   <div className="HomeValikkoFlex">
 

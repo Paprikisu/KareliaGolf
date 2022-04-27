@@ -51,7 +51,7 @@ function LoginPage() {
           <div className="login_formRegister">
             <h5>Unohditko salasanan?</h5>
             <Link to="/passwordReset">
-              <h5> resetoi salasana </h5>
+              <h5> Palauta salasana </h5>
             </Link>
             <h5>Etkö omista tunnuksia?</h5>
             <h5 className="login_formRegisterInfo">Tee tunnukset </h5>

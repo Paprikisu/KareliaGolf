@@ -30,7 +30,7 @@ function AccountMngPg() {
   function onChangeEmail() {
     reauthenticate(cnfrmPassword).then ((e) =>{
       updateEmail(user, newEmail).then((e) =>{
-        alert("Sähköposti Vaihdettu onnistuneesti");
+        alert("Sähköposti vaihdettu onnistuneesti");
       }).catch(error => alert(error.message))
     }).catch(error => alert(error.message))
   }
@@ -46,11 +46,9 @@ function AccountMngPg() {
           if(snapshot.empty) {
             alert("Ei varauksia")
           } else {
-            console.log("Snapshot returned")
             const omatVaraukset = Array()
             snapshot.forEach(tulos => {
               omatVaraukset.push(tulos.data())
-              console.log(tulos)
               alert("Varauksen tiedot: " + tulos.data().Varausaika + " " + tulos.data().Varauspäivä + " Ovikoodi: " + tulos.data().ovikoodi)
             })
           }
@@ -63,13 +61,10 @@ function AccountMngPg() {
 
     var reservations_randomvalues = db.collection("testi")            
     var query = reservations_randomvalues.where("timestamp", "<", Timestamp.now())
-    console.log(Timestamp.now())
     query.get().then(function(snapshot) {      
       snapshot.forEach((doc) => {
-        console.log(doc.data())
         doc.ref.delete()
       })
-      console.log("Deleted old data")
     })
   }
   
@@ -201,7 +196,7 @@ if (user) {
                 </p>
                 <input type="text" value={newEmail} onChange={e => setEmail(e.target.value)} id="emailtxt" placeholder="Uusi Sähköposti"/>
                 <input type="password" value={cnfrmPassword} onChange={e => setcnfrmPassword(e.target.value)} id="password" placeholder="Vahvista salasanalla"/>
-                <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda Sähköposti</button>
+                <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda sähköposti</button>
               </div>          
 
               <div className="form_am-contents">
