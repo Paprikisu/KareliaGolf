@@ -15,6 +15,7 @@ function createData(aika, maanantai, tiistai, keskiviikko, torstai, perjantai) {
   return { aika, maanantai, tiistai, keskiviikko, torstai, perjantai };
 }
 
+
 function Reservation() {
   const [reserveDate, setReservedate] = useState();
   const [reserveData, setReservedata] = useState([]);
@@ -58,6 +59,9 @@ function Reservation() {
         // rows.push(reserveData)
 
         // addAllItemsToTable(reserveData)
+        rows.forEach((row) => {
+          console.log(row)
+        })
       });
   };
 
@@ -120,19 +124,19 @@ function Reservation() {
                   <TableBody>
                     {rows.map((row) => (
                       <TableRow
-                        key={row.aika}
+                        key={row.Aika}                        
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
                         }}
                       >
                         <TableCell component="th" scope="row">
-                          {row.aika}
+                          {row.Aika}
                         </TableCell>
-                        <TableCell align="center">{row.maanantai}</TableCell>
-                        <TableCell align="center">{row.tiistai}</TableCell>
-                        <TableCell align="center">{row.keskiviikko}</TableCell>
-                        <TableCell align="center">{row.torstai}</TableCell>
-                        <TableCell align="center">{row.perjantai}</TableCell>
+                        <TableCell align="center">{row.Maanantai}</TableCell>
+                        <TableCell align="center">{row.Tiistai}</TableCell>
+                        <TableCell align="center">{row.Keskiviikko}</TableCell>
+                        <TableCell align="center">{row.Torstai}</TableCell>
+                        <TableCell align="center">{row.Perjantai}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
