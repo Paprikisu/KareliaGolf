@@ -159,32 +159,24 @@ function Reservation() {
     });
   };
   let table = document.getElementById('myTable')
-  const doSomething = () => {
-    let cells = table.getElementsByTagName('td')
-    for (var i = 0, len = cells.length; i < len; i++) {
-      cells[i].onclick = function () {
-        //console.log(this.innerHTML);
-        //console.log(this.cellIndex);
-        var th = table.getElementsByTagName('th')[this.cellIndex];
-        console.log(th.innerHTML);
-    }
 
+ 
 
-    }
-    
-    
-    
-  };
-
-  const getTableData = () => {
+  const openReservationWindow = () => {
     let cells = table.getElementsByTagName('td')
     for (var i = 0, len = cells.length; i < len; i++) {
       cells[i].onclick = function () {
 
+
+        // asettaa varausikkunaan ajan
         setReservetime(this.parentElement.children[0].textContent)
+
         // console.log(this.innerHTML);
         // console.log(this.cellIndex);
+
         var th = table.getElementsByTagName('th')[this.cellIndex];
+
+        // asettaa varausikkunaan päivän
         setReservedate(th.innerHTML);
     }
 
@@ -210,8 +202,6 @@ function Reservation() {
             <p> Varauskalenteri </p>
           </div>
           <div className="home_buttons">
-            <button onClick={doSomething}>Kokeile saada rivitieto</button>
-            <button onClick={doReservation}>Avaa ikkuna</button>
           </div>
           <div className="home_calendar">
             <div>
@@ -249,7 +239,7 @@ function Reservation() {
                         sx={{
                           "&:last-child td, &:last-child th": { border: 1 },
                         }}
-                        onClick={getTableData}
+                        onClick={openReservationWindow}
                       >
                         <TableCell component="th" scope="row">
                           {row.Aika}
