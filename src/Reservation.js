@@ -26,7 +26,7 @@ function Reservation() {
 
   // Tekee tämän käynnistyessä
   useEffect(() => {
-    db.collection("testikansio")
+    db.collection("Sisähallitaulukko")
       .get()
       .then((querySnapshot) => {
         let item;
@@ -134,7 +134,7 @@ function Reservation() {
     let length = cells.length;
     for (var i = 0; i < length; i++) {
       cells[i].onclick = function () {
-        if (this.cellIndex != 0) {
+        if (this.cellIndex != 0 && this.innerHTML == "Vapaa") {
           // asettaa varausikkunaan ajan
           setReservetime(this.parentElement.children[0].textContent);
 
@@ -198,9 +198,6 @@ function Reservation() {
       });
   };
 
-  // Alla oleva funktio saa klikatun cellin arvon luettua konsoliin
-  // onClick={({target}) => console.log(target.textContent)}
-  // onClick={({target}) => console.log(target.parentElement.children[0])
   return (
     <div className="home">
       <div className="home_container">
@@ -209,23 +206,23 @@ function Reservation() {
             <p> Varauskalenteri </p>
           </div>
           <div className="home_buttons">
-            <button onClick={updateSpecificDoc}>Listaa dokumentti IDT</button>
           </div>
           <div className="home_calendar">
             <div>
-              <TableContainer component={Paper}>
+              <TableContainer style={{ maxHeight: 900, maxWidth: 1500}} component={Paper}>
                 <Table
+                  stickyHeader
                   id="myTable"
-                  sx={{ maxWidth: 1500, minWidth: 900 }}
-                  size="small"
+                  sx={{ maxWidth: 1500, minWidth: 900, margin: 'auto' }}
+                  size="medium"
                   aria-label="a dense table"
                 >
                   <TableHead>
                     <TableRow
                       onClick={({ target }) => console.log(target.tagName)}
                     >
-                      <TableCell class="time">Aika</TableCell>
-                      <TableCell class="monday" scope="col" align="center">
+                      <TableCell>Aika</TableCell>
+                      <TableCell scope="col" align="center">
                         Maanantai {headerMonday}
                       </TableCell>
                       <TableCell scope="col" align="center">
