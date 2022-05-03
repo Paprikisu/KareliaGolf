@@ -12,6 +12,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import moment from "moment";
+import { minWidth } from "@mui/system";
 
 function Reservation() {
   const [{ user }, dispatch] = useStateValue();
@@ -24,6 +25,7 @@ function Reservation() {
   const [userEmail, setUserEmail] = useState(user ? user.email : "");
   const [rows, setDataRows] = useState([]);
 
+
   // Tekee tämän käynnistyessä
   useEffect(() => {
     db.collection("Sisähallitaulukko")
@@ -34,7 +36,6 @@ function Reservation() {
           // item.id = doc.id;
           item = doc.data();
           reserveData.push(item);
-          console.log(item);
         });
         setDataRows(reserveData);
       });
@@ -154,7 +155,7 @@ function Reservation() {
 
   // Funktio vastaa varaustaulukon päivittämisestä varatuksi tietokantaan.
   const updateSpecificDoc = () => {
-    db.collection("testikansio")
+    db.collection("Sisähallitaulukko")
       .where("Aika", "==", reserveTime) // etsii documentseista ajan (kaikissa docseissa unique aika) ja päivittää sen perusteella
       .get()
       .then((querySnapshot) => {
@@ -213,12 +214,15 @@ function Reservation() {
                 <Table
                   stickyHeader
                   id="myTable"
-                  sx={{ maxWidth: 1500, minWidth: 900, margin: 'auto' }}
+                  sx={{ maxWidth: 1500, minWidth: 1200, margin: 'auto' }}
                   size="medium"
                   aria-label="a dense table"
                 >
                   <TableHead>
-                    <TableRow
+                    <TableRow 
+                      sx={{
+                        "th": {background: 'lightblue', borderRight: 1}
+                      }}
                       onClick={({ target }) => console.log(target.tagName)}
                     >
                       <TableCell>Aika</TableCell>
@@ -244,7 +248,8 @@ function Reservation() {
                       <TableRow
                         key={row.Aika}
                         sx={{
-                          "&:last-child td, &:last-child th": { border: 1 },
+                          "td": { borderTop: 1, borderRight: 1, background: "lightgreen" },
+                          "th": {borderTop: 1, borderRight: 1, width: 50}
                         }}
                         onClick={openReservationWindow}
                       >
