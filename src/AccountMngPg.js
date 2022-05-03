@@ -214,8 +214,37 @@ function varaukset() {
           })     
       });
     }
-}
+  }
 
+  function weeklyUpdateWrapper() {
+
+    if(user.uid == "UL0GSxCSG6RUQ69UwBpOcOq7pu73") {
+      weeklySimUpdate();
+      weeklyHalliUpdate()
+    } else {
+      alert("Virhe: tämä toiminto on vain järjestelmänvalvojalle")
+    }
+  }
+
+  function AdminPanel() {    
+    if(user.uid == "UL0GSxCSG6RUQ69UwBpOcOq7pu73") {
+      return(
+        <div className="form_am-contents">
+                <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
+                <button type="button" onClick={weeklyUpdateWrapper} className="confirmBtn">Tyhjennä taulukot varauksista</button>
+                <button type="button" onClick={adminDatabaseUpkeep} className="confirmBtn">Poista vanhat varaukset (yli 2 viikkoa)</button>
+                <p>Vedä päivitetty jäsennumerolista (tekstitiedosto) alla olevaan kohtaan päivittääksesi tietokannan jäsennumerot</p>               
+                <input type="file" onChange={(e) => readJasennumerotFile(e)}/>
+                <p>Ovikoodien päivitys</p>               
+                <input type="file" onChange={(e) => readOvikooditFile(e)}/>
+         </div>
+      )
+    } else {
+      return(
+        <div></div>
+      )
+    }
+  }
  
   //Palautetaan normaali sivusto jos käyttäjä on kirjautunut sisään
   return (
@@ -249,17 +278,8 @@ function varaukset() {
                 <input type="text" value={newEmail} onChange={e => setEmail(e.target.value)} id="emailtxt" placeholder="Uusi Sähköposti"/>
                 <input type="password" value={cnfrmPassword} onChange={e => setcnfrmPassword(e.target.value)} id="password" placeholder="Vahvista salasanalla"/>
                 <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda sähköposti</button>
-              </div>          
-              <div className="form_am-contents">
-                <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
-                <button type="button" onClick={() => {weeklySimUpdate(); weeklyHalliUpdate()}} className="confirmBtn">Tyhjennä taulukot varauksista</button>
-                <button type="button" onClick={adminDatabaseUpkeep} className="confirmBtn">Poista vanhat varaukset (yli 2 viikkoa)</button>
-                <p>Vedä päivitetty jäsennumerolista (tekstitiedosto) alla olevaan kohtaan päivittääksesi tietokannan jäsennumerot</p>               
-                <input type="file" onChange={(e) => readJasennumerotFile(e)}/>
-                <p>Ovikoodien päivitys</p>               
-                <input type="file" onChange={(e) => readOvikooditFile(e)}/>
-
               </div>
+              <AdminPanel></AdminPanel>                        
             </div>
 
 
