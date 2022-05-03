@@ -5,6 +5,8 @@ import { db } from './firebase'
 import { Timestamp } from 'firebase/firestore'
 import { getAuth, updatePassword, updateEmail, reauthenticateWithCredential, EmailAuthProvider } from "firebase/auth";
 import { List } from '@mui/material'
+import { weeklySimUpdate } from "./updateFBSim";
+import { weeklyHalliUpdate } from "./UpdateFBHalli";
 
 
 
@@ -240,6 +242,7 @@ function varaukset() {
 
               <div className="form_am-contents">
                 <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
+                <button type="button" onClick={() => {weeklySimUpdate(); weeklyHalliUpdate()}} className="confirmBtn">Tyhjennä taulukot varauksista</button>
                 <button type="button" onClick={adminDatabaseUpkeep} className="confirmBtn">Poista vanhat varaukset (yli 2 viikkoa)</button>
                 <p>Vedä päivitetty jäsennumerolista (tekstitiedosto) alla olevaan kohtaan päivittääksesi tietokannan jäsennumerot</p>               
                 <input type="file" onChange={(e) => readJasennumerotFile(e)}/>
