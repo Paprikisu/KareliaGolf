@@ -22,7 +22,6 @@ function App() {
   useEffect(() => {
     // will only run once when the app component loads
 
-    // Vain testausta varten --- Poista ennen käyttöönottoa
     auth.onAuthStateChanged(authUser => {
 
       if (authUser) {
