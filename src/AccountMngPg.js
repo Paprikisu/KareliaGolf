@@ -30,9 +30,13 @@ function AccountMngPg() {
   //Vaihda sähköposti
   function onChangeEmail() {
     reauthenticate(cnfrmPassword).then ((e) =>{
-      updateEmail(user, newEmail).then((e) =>{
-        alert("Sähköposti vaihdettu onnistuneesti");
-      }).catch(error => alert(error.message))
+      if(newEmail.length > 0) {
+        updateEmail(user, newEmail).then((e) =>{
+          alert("Sähköposti vaihdettu onnistuneesti");
+        }).catch(error => alert(error.message))
+      } else {
+        alert("Virhe: syötä sähköposti ja yritä uudelleen")
+      }
     }).catch(error => alert(error.message))
   }
 
@@ -62,8 +66,8 @@ function AccountMngPg() {
 //Admin-toiminto vanhan varausdata poistoon, tulee vaatimaan kirjoitusoikeudet kokoelmaan
   function adminDatabaseUpkeep(){
 
-    var reservations_randomvalues = db.collection("testi")            
-    var query = reservations_randomvalues.where("timestamp", "<", Timestamp.now())
+    var reservations_randomvalues = db.collection("reservations")            
+    var query = reservations_randomvalues.where("created", "<", (Timestamp.now()-1209600000))
     query.get().then(function(snapshot) {      
       snapshot.forEach((doc) => {
         doc.ref.delete()
@@ -236,7 +240,7 @@ function varaukset() {
 
               <div className="form_am-contents">
                 <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
-                <button type="button" onClick={adminDatabaseUpkeep} className="confirmBtn">Poista vanhat varaukset</button>
+                <button type="button" onClick={adminDatabaseUpkeep} className="confirmBtn">Poista vanhat varaukset (yli 2 viikkoa)</button>
                 <p>Vedä päivitetty jäsennumerolista (tekstitiedosto) alla olevaan kohtaan päivittääksesi tietokannan jäsennumerot</p>               
                 <input type="file" onChange={(e) => readJasennumerotFile(e)}/>
                 <p>Ovikoodien päivitys</p>               
