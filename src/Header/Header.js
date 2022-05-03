@@ -34,7 +34,10 @@ function Header() {
     navigate('/home')
   }
   const goToHalli = e => {
-    navigate('/reservation')
+    navigate('/sisahalli')
+  }
+  const goToSimulaatio = e => {
+    navigate('/simulaatio')
   }
   // Kirjaudu ulos
   const handleAuthentication = () => {
@@ -84,7 +87,7 @@ const navSlide = () => {
               <Button variant="text" endIcon={<DateRangeIcon />}> Ajanvaraus </Button>
                 <ul>
                   <li onClick={goToHalli}><a href="#">Sisähalli</a></li>
-                  <li onClick={goToHalli}><a href="#">Simulaatio</a></li>
+                  <li onClick={goToSimulaatio}><a href="#">Simulaatio</a></li>
                 </ul>
             </div>
             <div className='dropdown' >

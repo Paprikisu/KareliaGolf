@@ -22,12 +22,12 @@
 .home_title{
     display: flex;
     align-self: center;
-    max-width: 50%;
+    max-width: 200px;
     font-size: 25px;
     border: 1px solid;
     border-radius: 5px;
     padding: 5px;
-    background: linear-gradient(to bottom, var(--medgreen), var(--navdgreen));
+    background: lightgreen;
 
 }
 
@@ -40,6 +40,7 @@
 
 td:hover{
     opacity: 0.8;
+    cursor: pointer;
     
 }
 

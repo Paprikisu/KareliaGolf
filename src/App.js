@@ -5,7 +5,8 @@ import LoginPage from './LoginPage'
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Registration from './Registration';
-import Reservation from './Reservation';
+import Reservationhalli from './Reservationhalli';
+import Reservationsimulaatio from './Reservationsimulaatio';
 import Home from './Home'
 import AccountMngPg from './AccountMngPg'
 import Header from './Header/Header';
@@ -49,15 +50,13 @@ function App() {
 
             <Route path="/register"  element ={[<Registration />]} />
 
-            <Route path="/reservation"  element ={[<Header/>, <Reservation />]} />
-
             <Route path="/home"  element ={[<Header/>, <Home />]} />
 
             <Route path="/account_management"  element ={[<Header/>, <AccountMngPg />]} />
 
-            <Route path="/sisahalli"  element ={[<sisahalli />]} />
+            <Route path="/sisahalli"  element ={[<Header/>, <Reservationhalli/>]} />
 
-            <Route path="/simulaatio"  element ={[<simulaatio />]} />
+            <Route path="/simulaatio"  element ={[<Header/>, <Reservationsimulaatio />]} />
 
             <Route path="/passwordReset" element ={[<PasswordReset />]} />
 

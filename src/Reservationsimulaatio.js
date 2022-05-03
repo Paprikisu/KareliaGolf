@@ -12,9 +12,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import moment from "moment";
-import { minWidth } from "@mui/system";
 
-function Reservation() {
+
+
+function Reservationsimulaatio() {
   const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
 
@@ -24,11 +25,13 @@ function Reservation() {
   const [popupWindow, setPopupWindow] = useState();
   const [userEmail, setUserEmail] = useState(user ? user.email : "");
   const [rows, setDataRows] = useState([]);
+  const [color, setColor] = useState({"td": { borderTop: 1, borderRight: 1, background: "lightgreen" },
+  "th": {borderTop: 1, borderRight: 1, width: 50}});
 
 
   // Tekee tämän käynnistyessä
   useEffect(() => {
-    db.collection("Sisähallitaulukko")
+    db.collection("Simulaatiotaulukko")
       .get()
       .then((querySnapshot) => {
         let item;
@@ -38,6 +41,7 @@ function Reservation() {
           reserveData.push(item);
         });
         setDataRows(reserveData);
+        doColoring(); // Värittää varatut ruudut punaiseksi
       });
   }, []);
 
@@ -55,6 +59,7 @@ function Reservation() {
         Varaaja: userEmail,
         Varauspäivä: reserveDate,
         Varausaika: reserveTime,
+        created: new Date()
       })
       .then(function (docRef) {
         let reservationId = docRef.id;
@@ -152,10 +157,19 @@ function Reservation() {
       };
     }
   };
+  const doColoring = () => {
+    var td = document.querySelectorAll('td')
+    for (let cell of td){
+      if(cell.innerHTML === 'Varattu'){
+        cell.style.backgroundColor = '#C76666'
+      }
+    }
+
+  }
 
   // Funktio vastaa varaustaulukon päivittämisestä varatuksi tietokantaan.
   const updateSpecificDoc = () => {
-    db.collection("Sisähallitaulukko")
+    db.collection("Simulaatiotaulukko")
       .where("Aika", "==", reserveTime) // etsii documentseista ajan (kaikissa docseissa unique aika) ja päivittää sen perusteella
       .get()
       .then((querySnapshot) => {
@@ -204,7 +218,7 @@ function Reservation() {
       <div className="home_container">
         <div className="home_form">
           <div className="home_title">
-            <p> Varauskalenteri </p>
+            <p> Simulaatio </p>
           </div>
           <div className="home_buttons">
           </div>
@@ -221,7 +235,7 @@ function Reservation() {
                   <TableHead>
                     <TableRow 
                       sx={{
-                        "th": {background: 'lightblue', borderRight: 1}
+                        "th": {background: '#4BD2D7', borderRight: 1}
                       }}
                       onClick={({ target }) => console.log(target.tagName)}
                     >
@@ -247,9 +261,9 @@ function Reservation() {
                     {rows.map((row) => (
                       <TableRow
                         key={row.Aika}
-                        sx={{
-                          "td": { borderTop: 1, borderRight: 1, background: "lightgreen" },
-                          "th": {borderTop: 1, borderRight: 1, width: 50}
+                        sx={{ 
+                        "td": { border: 1, backgroundColor: 'lightgreen'},
+                        "th": {borderTop: 1, borderRight: 1, width: 50}
                         }}
                         onClick={openReservationWindow}
                       >
@@ -270,7 +284,7 @@ function Reservation() {
 
             <Popup trigger={popupWindow} setTrigger={setPopupWindow}>
               <h3> Varaa aika</h3>
-              <p> Haluatko varata ajan?</p>
+              <p> Haluatko varata ajan simulaatioon?</p>
               <p className="popup_weekday">{reserveDate}</p>
               <p className="popup_reserveTime">{reserveTime}</p>
               <button className="popup_reserveBtn" onClick={doReservation}>
@@ -284,4 +298,4 @@ function Reservation() {
   );
 }
 
-export default Reservation;
+export default Reservationsimulaatio;

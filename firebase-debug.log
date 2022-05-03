@@ -1,0 +1,44 @@
+[debug] [2022-05-03T12:16:34.158Z] ----------------------------------------------------------------------
+[debug] [2022-05-03T12:16:34.160Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\Miska\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init
+[debug] [2022-05-03T12:16:34.160Z] CLI Version:   10.6.0
+[debug] [2022-05-03T12:16:34.160Z] Platform:      win32
+[debug] [2022-05-03T12:16:34.160Z] Node Version:  v16.14.0
+[debug] [2022-05-03T12:16:34.162Z] Time:          Tue May 03 2022 15:16:34 GMT+0300 (Itä-Euroopan kesäaika)
+[debug] [2022-05-03T12:16:34.162Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-05-03T12:16:34.165Z] >>> [apiv2][query] GET https://firebase-public.firebaseio.com/cli.json [none]
+[debug] [2022-05-03T12:16:34.183Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-05-03T12:16:34.183Z] > authorizing via signed-in user (puppywilltell@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  C:\Users\Miska\Desktop\KareliaGolf\R14
+
+[debug] [2022-05-03T12:16:34.772Z] <<< [apiv2][status] GET https://firebase-public.firebaseio.com/cli.json 200
+[debug] [2022-05-03T12:16:34.772Z] <<< [apiv2][body] GET https://firebase-public.firebaseio.com/cli.json {"cloudBuildErrorAfter":1594252800000,"cloudBuildWarnAfter":1590019200000,"defaultNode10After":1594252800000,"minVersion":"3.0.5","node8DeploysDisabledAfter":1613390400000,"node8RuntimeDisabledAfter":1615809600000,"node8WarnAfter":1600128000000}
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[debug] [2022-05-03T12:17:26.152Z] > refreshing access token with scopes: []
+[debug] [2022-05-03T12:17:26.153Z] >>> HTTP REQUEST POST https://www.googleapis.com/oauth2/v3/token  
+ <request body omitted>
+[debug] [2022-05-03T12:17:26.327Z] <<< HTTP RESPONSE 200 {"date":"Tue, 03 May 2022 12:17:25 GMT","expires":"Mon, 01 Jan 1990 00:00:00 GMT","pragma":"no-cache","cache-control":"no-cache, no-store, max-age=0, must-revalidate","content-type":"application/json; charset=utf-8","vary":"X-Origin, Referer, Origin,Accept-Encoding","server":"scaffolding on HTTPServer2","x-xss-protection":"0","x-frame-options":"SAMEORIGIN","x-content-type-options":"nosniff","alt-svc":"h3=\":443\"; ma=2592000,h3-29=\":443\"; ma=2592000,h3-Q050=\":443\"; ma=2592000,h3-Q046=\":443\"; ma=2592000,h3-Q043=\":443\"; ma=2592000,quic=\":443\"; ma=2592000; v=\"46,43\"","accept-ranges":"none","transfer-encoding":"chunked"}
+[debug] [2022-05-03T12:17:26.337Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects pageSize=100
+[debug] [2022-05-03T12:17:26.930Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects 200
+[debug] [2022-05-03T12:17:26.930Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects [omitted]
+[debug] [2022-05-03T12:18:26.332Z] Error: kill ENOSYS
+    at process.kill (node:internal/process/per_thread:220:13)
+    at process.listener (C:\Users\Miska\AppData\Roaming\npm\node_modules\firebase-tools\node_modules\signal-exit\index.js:95:15)
+    at process.emit (node:events:520:28)
+[error] 
+[error] Error: An unexpected error has occurred.

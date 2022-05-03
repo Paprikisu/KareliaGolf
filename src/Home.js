@@ -6,10 +6,10 @@ import {useNavigate} from 'react-router-dom';
 function Home() {
   const navigate = useNavigate();
   const goToSimulaatio = e => {
-    navigate('/reservation')
+    navigate('/simulaatio')
   }
   const goToHalli = e => {
-    navigate('/reservation')
+    navigate('/sisahalli')
   }
   return (
     <div className="main">
