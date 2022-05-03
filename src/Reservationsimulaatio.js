@@ -15,6 +15,9 @@ import moment from "moment";
 
 
 
+
+
+
 function Reservationsimulaatio() {
   const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
@@ -25,8 +28,8 @@ function Reservationsimulaatio() {
   const [popupWindow, setPopupWindow] = useState();
   const [userEmail, setUserEmail] = useState(user ? user.email : "");
   const [rows, setDataRows] = useState([]);
-  const [color, setColor] = useState({"td": { borderTop: 1, borderRight: 1, background: "lightgreen" },
-  "th": {borderTop: 1, borderRight: 1, width: 50}});
+
+
 
 
   // Tekee tämän käynnistyessä
@@ -206,6 +209,7 @@ function Reservationsimulaatio() {
       });
   };
 
+
   return (
     <div className="home">
       <div className="home_container">
@@ -214,6 +218,7 @@ function Reservationsimulaatio() {
             <p> Simulaatio </p>
           </div>
           <div className="home_buttons">
+
           </div>
           <div className="home_calendar">
             <div>

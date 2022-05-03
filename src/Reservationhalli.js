@@ -15,6 +15,8 @@ import moment from "moment";
 
 
 
+
+
 function Reservationhalli() {
   const [{ user }, dispatch] = useStateValue();
   const navigate = useNavigate();
@@ -25,13 +27,11 @@ function Reservationhalli() {
   const [popupWindow, setPopupWindow] = useState();
   const [userEmail, setUserEmail] = useState(user ? user.email : "");
   const [rows, setDataRows] = useState([]);
-  const [color, setColor] = useState({"td": { borderTop: 1, borderRight: 1, background: "lightgreen" },
-  "th": {borderTop: 1, borderRight: 1, width: 50}});
 
 
   // Tekee tämän käynnistyessä
   useEffect(() => {
-    db.collection("Sisähallitaulukko")
+    db.collection("Sisahallitaulukko")
       .get()
       .then((querySnapshot) => {
         let item;
@@ -164,7 +164,7 @@ function Reservationhalli() {
 
   // Funktio vastaa varaustaulukon päivittämisestä varatuksi tietokantaan.
   const updateSpecificDoc = () => {
-    db.collection("Sisähallitaulukko")
+    db.collection("Sisahallitaulukko")
       .where("Aika", "==", reserveTime) // etsii documentseista ajan (kaikissa docseissa unique aika) ja päivittää sen perusteella
       .get()
       .then((querySnapshot) => {
