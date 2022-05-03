@@ -63,7 +63,6 @@ function Reservationsimulaatio() {
       })
       .then(function (docRef) {
         let reservationId = docRef.id;
-        console.log(reservationId);
         return reservationId;
       })
       .then(function (reservationId) {
@@ -85,7 +84,6 @@ function Reservationsimulaatio() {
                 .then(function (newSnapshot) {
                   newSnapshot.forEach((doc) => {
                     let docData = doc.data();
-                    console.log(doc.id, " => ", docData.koodi);
                     var varausRef = db
                       .collection("reservations")
                       .doc(reservationId);
@@ -104,7 +102,6 @@ function Reservationsimulaatio() {
             } else {
               snapshot.forEach((doc) => {
                 let docData = doc.data();
-                console.log(doc.id, " => ", docData.koodi);
                 var varausRef = db
                   .collection("reservations")
                   .doc(reservationId);
@@ -124,9 +121,6 @@ function Reservationsimulaatio() {
         alert("Virhe ajanvarauksessa. Ole hyvä ja yritä uudelleen.");
       });
 
-    // Testaus tarkoitus
-    console.log("Varattu päivä: " + reserveDate);
-    console.log("Varattu aika: " + reserveTime);
 
     // Kutsuu varaustaulukon päivittävää funktiota
     updateSpecificDoc();
@@ -205,11 +199,10 @@ function Reservationsimulaatio() {
           }
 
           // doc.data() is never undefined for query doc snapshots
-          console.log(doc.id, " => ", doc.data());
         });
       })
       .catch((error) => {
-        console.log("Error getting documents: ", error);
+
       });
   };
 
@@ -237,7 +230,6 @@ function Reservationsimulaatio() {
                       sx={{
                         "th": {background: '#4BD2D7', borderRight: 1}
                       }}
-                      onClick={({ target }) => console.log(target.tagName)}
                     >
                       <TableCell>Aika</TableCell>
                       <TableCell scope="col" align="center">
