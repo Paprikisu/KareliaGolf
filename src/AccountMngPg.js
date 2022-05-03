@@ -67,110 +67,121 @@ function AccountMngPg() {
 */
 //Admin-toiminto vanhan varausdata poistoon, tulee vaatimaan kirjoitusoikeudet kokoelmaan
   function adminDatabaseUpkeep(){
-
-    var reservations_randomvalues = db.collection("reservations")            
-    var query = reservations_randomvalues.where("created", "<", new Date(Date.now()-1209600000))
-    query.get().then(function(snapshot) {      
-      snapshot.forEach((doc) => {
-        doc.ref.delete()
+    if (user.uid == "UL0GSxCSG6RUQ69UwBpOcOq7pu73") {
+      var reservations_randomvalues = db.collection("reservations")            
+      var query = reservations_randomvalues.where("created", "<", new Date(Date.now()-1209600000))
+      query.get().then(function(snapshot) {      
+        snapshot.forEach((doc) => {
+          doc.ref.delete()
+        })
       })
-    })
+    } else {
+      alert("Virhe: tämä toiminto on tarkoitettu vain järjestelmänvalvojalle")
+    }
   }
   
   //Luetaan uusi jäsennumerolista tiedostosta
   const readJasennumerotFile = async (e) => {
-    e.preventDefault()
-    var reader = new FileReader()
+    if (user.uid == "UL0GSxCSG6RUQ69UwBpOcOq7pu73") {
+      e.preventDefault()
+      var reader = new FileReader()
 
-    //Luetaan tiedosto
-    reader.onload = async (e) => { 
-      const text = (e.target.result)
+      //Luetaan tiedosto
+      reader.onload = async (e) => { 
+        const text = (e.target.result)
 
-      //Pätkitään rivi kerrallaan
-      var splitJasennumerot = text.split(/\r?\n/);
+        //Pätkitään rivi kerrallaan
+        var splitJasennumerot = text.split(/\r?\n/);
 
-      //Collection jäsennumeroille
-      var jasennumerotCollection = db.collection("jasennumerot") 
+        //Collection jäsennumeroille
+        var jasennumerotCollection = db.collection("jasennumerot") 
 
-      //Tehdään kysely ja poistetaan jäsennumerot jotka eivät ole annetussa tiedostossa
-      jasennumerotCollection.get().then(function(snapshot) {
-        snapshot.forEach((doc) => {
-          if (!(splitJasennumerot.includes(doc.data().jasennumero))) {
-            doc.ref.delete()
-          }
-        })
-      })
-      //Sitten lisätään uudet numerot
-      .then(
-
-        //Käydään jäsennumerot yksi kerrallaan läpi
-        splitJasennumerot.forEach((jasennumero) => {
-          
-          //Jos jäsennro löytyy jo listasta (snapshot on tyhjä), lisätään kokoelmaan
-          var query = jasennumerotCollection.where("jasennumero", "==", jasennumero)
-          var snapshot = query.get().then(function(snapshot) {
-
-            if (snapshot.empty == true) {
-              db
-              .collection("jasennumerot")
-              .add({
-                jasennumero: jasennumero
-              })  
-            }  
+        //Tehdään kysely ja poistetaan jäsennumerot jotka eivät ole annetussa tiedostossa
+        jasennumerotCollection.get().then(function(snapshot) {
+          snapshot.forEach((doc) => {
+            if (!(splitJasennumerot.includes(doc.data().jasennumero))) {
+              doc.ref.delete()
+            }
           })
         })
-      )
+        //Sitten lisätään uudet numerot
+        .then(
 
-    };
-    reader.readAsText(e.target.files[0])
+          //Käydään jäsennumerot yksi kerrallaan läpi
+          splitJasennumerot.forEach((jasennumero) => {
+            
+            //Jos jäsennro löytyy jo listasta (snapshot on tyhjä), lisätään kokoelmaan
+            var query = jasennumerotCollection.where("jasennumero", "==", jasennumero)
+            var snapshot = query.get().then(function(snapshot) {
+
+              if (snapshot.empty == true) {
+                db
+                .collection("jasennumerot")
+                .add({
+                  jasennumero: jasennumero
+                })  
+              }  
+            })
+          })
+        )
+
+      };
+      reader.readAsText(e.target.files[0])
+    } else {
+      alert("Virhe: tämä toiminto on tarkoitettu vain järjestelmänvalvojalle")
+    }
   }
 
   //Luetaan uusi ovikoodilista tiedostosta
   const readOvikooditFile = async (e) => {
-    e.preventDefault()
-    var reader = new FileReader()
+    if (user.uid == "UL0GSxCSG6RUQ69UwBpOcOq7pu73") {
+      e.preventDefault()
+      var reader = new FileReader()
 
-    //Luetaan tiedosto
-    reader.onload = async (e) => { 
-      const ovikooditText = (e.target.result)
+      //Luetaan tiedosto
+      reader.onload = async (e) => { 
+        const ovikooditText = (e.target.result)
 
-      //Pätkitään rivi kerrallaan
-      var splitOvikoodit = ovikooditText.split(/\r?\n/);
+        //Pätkitään rivi kerrallaan
+        var splitOvikoodit = ovikooditText.split(/\r?\n/);
 
-      //Collection koodeille
-      var ovikooditCollection = db.collection("ovikoodit") 
+        //Collection koodeille
+        var ovikooditCollection = db.collection("ovikoodit") 
 
-      //Tehdään kysely ja poistetaan koodit jotka eivät ole annetussa tiedostossa
-      ovikooditCollection.get().then(function(snapshot) {
-        snapshot.forEach((doc) => {
-          if (!(splitOvikoodit.includes(doc.data().koodi))) {
-            doc.ref.delete()
-          }
-        })
-      })
-      //Sitten lisätään uudet koodit
-      .then(
-
-        //Käydään koodit yksi kerrallaan läpi
-        splitOvikoodit.forEach((ovikoodi) => {
-          
-          //Jos koodi löytyy jo listasta (snapshot on tyhjä), lisätään kokoelmaan
-          var query = ovikooditCollection.where("koodi", "==", ovikoodi)
-          var snapshot = query.get().then(function(snapshot) {
-
-            if (snapshot.empty == true) {
-              db
-              .collection("ovikoodit")
-              .add({
-                koodi: ovikoodi
-              })  
-            }  
+        //Tehdään kysely ja poistetaan koodit jotka eivät ole annetussa tiedostossa
+        ovikooditCollection.get().then(function(snapshot) {
+          snapshot.forEach((doc) => {
+            if (!(splitOvikoodit.includes(doc.data().koodi))) {
+              doc.ref.delete()
+            }
           })
         })
-      )
+        //Sitten lisätään uudet koodit
+        .then(
 
-    };
-    reader.readAsText(e.target.files[0])
+          //Käydään koodit yksi kerrallaan läpi
+          splitOvikoodit.forEach((ovikoodi) => {
+            
+            //Jos koodi löytyy jo listasta (snapshot on tyhjä), lisätään kokoelmaan
+            var query = ovikooditCollection.where("koodi", "==", ovikoodi)
+            var snapshot = query.get().then(function(snapshot) {
+
+              if (snapshot.empty == true) {
+                db
+                .collection("ovikoodit")
+                .add({
+                  koodi: ovikoodi
+                })  
+              }  
+            })
+          })
+        )
+
+      };
+      reader.readAsText(e.target.files[0])
+    } else {
+      alert("Virhe: tämä toiminto on tarkoitettu vain järjestelmänvalvojalle")
+    }
   }
 
 if (user) {
@@ -239,7 +250,6 @@ function varaukset() {
                 <input type="password" value={cnfrmPassword} onChange={e => setcnfrmPassword(e.target.value)} id="password" placeholder="Vahvista salasanalla"/>
                 <button type="button" onClick={onChangeEmail} className="confirmBtn">Vaihda sähköposti</button>
               </div>          
-
               <div className="form_am-contents">
                 <h2 className="FormHeader_am">Järjestelmänvalvojan työkalut:</h2>
                 <button type="button" onClick={() => {weeklySimUpdate(); weeklyHalliUpdate()}} className="confirmBtn">Tyhjennä taulukot varauksista</button>
