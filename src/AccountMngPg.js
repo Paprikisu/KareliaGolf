@@ -67,7 +67,7 @@ function AccountMngPg() {
   function adminDatabaseUpkeep(){
 
     var reservations_randomvalues = db.collection("reservations")            
-    var query = reservations_randomvalues.where("created", "<", (Timestamp.now()-1209600000))
+    var query = reservations_randomvalues.where("created", "<", new Date(Date.now()-1209600000))
     query.get().then(function(snapshot) {      
       snapshot.forEach((doc) => {
         doc.ref.delete()
